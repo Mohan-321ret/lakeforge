@@ -1,0 +1,16 @@
+customer_id,first_name,last_name,email,phone,country,registration_date,account_status
+1,Alice,Johnson,alice.johnson@email.com,555-0101,USA,2020-01-15,active
+2,Bob,Smith,bob.smith@email.com,555-0102,Canada,2020-02-20,active
+3,Carol,Williams,carol.williams@email.com,555-0103,USA,2020-03-10,active
+4,David,Brown,david.brown@email.com,555-0104,UK,2020-04-05,inactive
+5,Emma,Davis,emma.davis@email.com,555-0105,USA,2020-05-12,active
+6,Frank,Miller,frank.miller@email.com,555-0106,Australia,2020-06-18,active
+7,Grace,Wilson,grace.wilson@email.com,555-0107,USA,2020-07-22,active
+8,Henry,Moore,henry.moore@email.com,555-0108,Canada,2020-08-30,inactive
+9,Iris,Taylor,iris.taylor@email.com,555-0109,USA,2020-09-14,active
+10,Jack,Anderson,jack.anderson@email.com,555-0110,UK,2020-10-25,active
+11,Karen,Thomas,karen.thomas@email.com,555-0111,USA,2020-11-08,active
+12,Leo,Jackson,leo.jackson@email.com,555-0112,Australia,2020-12-20,active
+13,Maya,White,maya.white@email.com,555-0113,USA,2021-01-11,active
+14,Noah,Harris,noah.harris@email.com,555-0114,Canada,2021-02-19,inactive
+15,Olivia,Martin,olivia.martin@email.com,555-0115,USA,2021-03-27,active

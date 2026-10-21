@@ -1,0 +1,316 @@
+{
+  "source": "tests/data/sample.csv",
+  "tables": {
+    "data_576221": {
+      "name": "data_576221",
+      "row_count": 10,
+      "sample_count": 10,
+      "columns": {
+        "customer_id": {
+          "name": "customer_id",
+          "type": "BIGINT",
+          "nullable": true,
+          "is_pii": false,
+          "pii_type": null,
+          "pii_confidence": 0.0,
+          "stats": {
+            "null_count": 0,
+            "null_rate": 0.0,
+            "unique_count": 10,
+            "unique_rate": 1.0,
+            "min_value": "1",
+            "max_value": "10",
+            "top_values": [
+              {
+                "value": "1",
+                "count": 1
+              },
+              {
+                "value": "2",
+                "count": 1
+              },
+              {
+                "value": "3",
+                "count": 1
+              },
+              {
+                "value": "4",
+                "count": 1
+              },
+              {
+                "value": "5",
+                "count": 1
+              }
+            ]
+          }
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "VARCHAR",
+          "nullable": true,
+          "is_pii": false,
+          "pii_type": null,
+          "pii_confidence": 0.0,
+          "stats": {
+            "null_count": 0,
+            "null_rate": 0.0,
+            "unique_count": 10,
+            "unique_rate": 1.0,
+            "min_value": null,
+            "max_value": null,
+            "top_values": [
+              {
+                "value": "Alice",
+                "count": 1
+              },
+              {
+                "value": "Bob",
+                "count": 1
+              },
+              {
+                "value": "Charlie",
+                "count": 1
+              },
+              {
+                "value": "Diana",
+                "count": 1
+              },
+              {
+                "value": "Evan",
+                "count": 1
+              }
+            ]
+          }
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "VARCHAR",
+          "nullable": true,
+          "is_pii": false,
+          "pii_type": null,
+          "pii_confidence": 0.0,
+          "stats": {
+            "null_count": 0,
+            "null_rate": 0.0,
+            "unique_count": 10,
+            "unique_rate": 1.0,
+            "min_value": null,
+            "max_value": null,
+            "top_values": [
+              {
+                "value": "Johnson",
+                "count": 1
+              },
+              {
+                "value": "Smith",
+                "count": 1
+              },
+              {
+                "value": "Brown",
+                "count": 1
+              },
+              {
+                "value": "Prince",
+                "count": 1
+              },
+              {
+                "value": "Davis",
+                "count": 1
+              }
+            ]
+          }
+        },
+        "email": {
+          "name": "email",
+          "type": "VARCHAR",
+          "nullable": true,
+          "is_pii": true,
+          "pii_type": null,
+          "pii_confidence": 0.9,
+          "stats": {
+            "null_count": 0,
+            "null_rate": 0.0,
+            "unique_count": 10,
+            "unique_rate": 1.0,
+            "min_value": null,
+            "max_value": null,
+            "top_values": [
+              {
+                "value": "alice.johnson@example.com",
+                "count": 1
+              },
+              {
+                "value": "bob.smith@example.com",
+                "count": 1
+              },
+              {
+                "value": "charlie.brown@example.com",
+                "count": 1
+              },
+              {
+                "value": "diana.prince@example.com",
+                "count": 1
+              },
+              {
+                "value": "evan.davis@example.com",
+                "count": 1
+              }
+            ]
+          }
+        },
+        "phone": {
+          "name": "phone",
+          "type": "VARCHAR",
+          "nullable": true,
+          "is_pii": true,
+          "pii_type": null,
+          "pii_confidence": 0.9,
+          "stats": {
+            "null_count": 0,
+            "null_rate": 0.0,
+            "unique_count": 10,
+            "unique_rate": 1.0,
+            "min_value": null,
+            "max_value": null,
+            "top_values": [
+              {
+                "value": "555-0101",
+                "count": 1
+              },
+              {
+                "value": "555-0102",
+                "count": 1
+              },
+              {
+                "value": "555-0103",
+                "count": 1
+              },
+              {
+                "value": "555-0104",
+                "count": 1
+              },
+              {
+                "value": "555-0105",
+                "count": 1
+              }
+            ]
+          }
+        },
+        "age": {
+          "name": "age",
+          "type": "BIGINT",
+          "nullable": true,
+          "is_pii": false,
+          "pii_type": null,
+          "pii_confidence": 0.0,
+          "stats": {
+            "null_count": 0,
+            "null_rate": 0.0,
+            "unique_count": 10,
+            "unique_rate": 1.0,
+            "min_value": "26",
+            "max_value": "51",
+            "top_values": [
+              {
+                "value": "28",
+                "count": 1
+              },
+              {
+                "value": "35",
+                "count": 1
+              },
+              {
+                "value": "42",
+                "count": 1
+              },
+              {
+                "value": "31",
+                "count": 1
+              },
+              {
+                "value": "29",
+                "count": 1
+              }
+            ]
+          }
+        },
+        "signup_date": {
+          "name": "signup_date",
+          "type": "DATE",
+          "nullable": true,
+          "is_pii": false,
+          "pii_type": null,
+          "pii_confidence": 0.0,
+          "stats": {
+            "null_count": 0,
+            "null_rate": 0.0,
+            "unique_count": 10,
+            "unique_rate": 1.0,
+            "min_value": "2023-01-15",
+            "max_value": "2023-10-20",
+            "top_values": [
+              {
+                "value": "2023-01-15",
+                "count": 1
+              },
+              {
+                "value": "2023-02-20",
+                "count": 1
+              },
+              {
+                "value": "2023-03-10",
+                "count": 1
+              },
+              {
+                "value": "2023-04-05",
+                "count": 1
+              },
+              {
+                "value": "2023-05-12",
+                "count": 1
+              }
+            ]
+          }
+        },
+        "country": {
+          "name": "country",
+          "type": "VARCHAR",
+          "nullable": true,
+          "is_pii": false,
+          "pii_type": null,
+          "pii_confidence": 0.0,
+          "stats": {
+            "null_count": 0,
+            "null_rate": 0.0,
+            "unique_count": 4,
+            "unique_rate": 0.4,
+            "min_value": null,
+            "max_value": null,
+            "top_values": [
+              {
+                "value": "USA",
+                "count": 5
+              },
+              {
+                "value": "Canada",
+                "count": 2
+              },
+              {
+                "value": "UK",
+                "count": 2
+              },
+              {
+                "value": "Australia",
+                "count": 1
+              }
+            ]
+          }
+        }
+      },
+      "pii_columns": {
+        "email": null,
+        "phone": null
+      }
+    }
+  }
+}

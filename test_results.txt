@@ -1,0 +1,61 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\MohanaPrasanthSivaku\Desktop\lakeforge
+configfile: pyproject.toml
+plugins: anyio-4.14.2, cov-7.1.0, xdist-3.8.0
+collected 331 items
+
+tests\test_discover.py ................F.F.                              [  6%]
+tests\test_docs.py ......................                                [ 12%]
+tests\test_executor.py ..................................                [ 22%]
+tests\test_llm.py .............................                          [ 31%]
+tests\test_phase10_cli.py ..................                             [ 37%]
+tests\test_phase11_connectors.py ...FFFFF.......FFFFFFFFFFFF.....FF      [ 47%]
+tests\test_phase7_router_sql.py ......................................   [ 58%]
+tests\test_profile.py ..........................                         [ 66%]
+tests\test_retriever.py .................................                [ 76%]
+tests\test_retriever_phase5.py ...............................           [ 86%]
+tests\test_validator.py ..............................................   [100%]
+
+============================== warnings summary ===============================
+lakeforge\config.py:11
+  C:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\lakeforge\config.py:11: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class LakeforgeConfig(BaseModel):
+
+tests/test_llm.py::TestPromptCache::test_cache_set_and_get
+tests/test_llm.py::TestPromptCache::test_cache_set_and_get
+tests/test_llm.py::TestPromptCache::test_cache_different_prompts
+tests/test_llm.py::TestPromptCache::test_cache_different_prompts
+tests/test_llm.py::TestLLMIntegration::test_cache_and_cost_integration
+tests/test_llm.py::TestLLMIntegration::test_cache_and_cost_integration
+  C:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\lakeforge\llm\cache.py:74: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+    cursor = conn.execute(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.13.14-final-0 _______________
+
+Coverage HTML written to dir htmlcov
+=========================== short test summary info ===========================
+FAILED tests/test_discover.py::TestCLI::test_version_command - assert 2 == 0
+FAILED tests/test_discover.py::TestCLI::test_inspect_csv_success - assert 1 == 0
+FAILED tests/test_phase11_connectors.py::TestDatabricksConnector::test_databricks_connector_list_tables
+FAILED tests/test_phase11_connectors.py::TestDatabricksConnector::test_databricks_connector_get_schema
+FAILED tests/test_phase11_connectors.py::TestDatabricksConnector::test_databricks_connector_get_row_count
+FAILED tests/test_phase11_connectors.py::TestDatabricksConnector::test_databricks_connector_query
+FAILED tests/test_phase11_connectors.py::TestDatabricksConnector::test_databricks_connector_close
+FAILED tests/test_phase11_connectors.py::TestDatabricksExecutor::test_databricks_executor_init
+FAILED tests/test_phase11_connectors.py::TestDatabricksExecutor::test_databricks_executor_missing_credentials
+FAILED tests/test_phase11_connectors.py::TestDatabricksExecutor::test_databricks_executor_execute_success
+FAILED tests/test_phase11_connectors.py::TestDatabricksExecutor::test_databricks_executor_execute_error
+FAILED tests/test_phase11_connectors.py::TestDatabricksExecutor::test_databricks_executor_result_truncation
+FAILED tests/test_phase11_connectors.py::TestDatabricksExecutor::test_databricks_executor_context_manager
+FAILED tests/test_phase11_connectors.py::TestPostgresExecutor::test_postgres_executor_init
+FAILED tests/test_phase11_connectors.py::TestPostgresExecutor::test_postgres_executor_missing_connection_string
+FAILED tests/test_phase11_connectors.py::TestPostgresExecutor::test_postgres_executor_execute_success
+FAILED tests/test_phase11_connectors.py::TestPostgresExecutor::test_postgres_executor_execute_error
+FAILED tests/test_phase11_connectors.py::TestPostgresExecutor::test_postgres_executor_result_truncation
+FAILED tests/test_phase11_connectors.py::TestPostgresExecutor::test_postgres_executor_context_manager
+FAILED tests/test_phase11_connectors.py::TestExecutorInterface::test_databricks_executor_implements_interface
+FAILED tests/test_phase11_connectors.py::TestExecutorInterface::test_postgres_executor_implements_interface
+================= 21 failed, 310 passed, 7 warnings in 4.57s ==================

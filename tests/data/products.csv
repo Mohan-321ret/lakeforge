@@ -1,0 +1,16 @@
+product_id,product_name,category,price,stock_quantity,manufacturer,sku
+P001,Laptop Pro,Electronics,1299.99,45,TechCorp,TECH-LP-001
+P002,Wireless Mouse,Electronics,29.99,150,PeripheralCo,TECH-MO-002
+P003,USB-C Cable,Accessories,12.99,500,CableMasters,ACC-UC-003
+P004,Office Chair,Furniture,299.00,30,FurnitureHub,FURN-CH-004
+P005,Standing Desk,Furniture,599.99,25,DeskPro,FURN-DK-005
+P006,Monitor 27in,Electronics,349.99,60,DisplayTech,TECH-MO-006
+P007,Keyboard Mechanical,Accessories,159.99,80,KeyMaster,ACC-KB-007
+P008,Desk Lamp,Furniture,45.99,120,LightWorks,FURN-LMP-008
+P009,Notebook Pad,Supplies,4.99,1000,PaperCo,SUP-NB-009
+P010,Pen Set,Supplies,12.50,300,WritePro,SUP-PEN-010
+P011,Phone Case,Accessories,24.99,200,CaseMakers,ACC-PC-011
+P012,Webcam 1080p,Electronics,89.99,90,CamTech,TECH-WC-012
+P013,Desk Organizer,Supplies,19.99,250,OrganizerCo,SUP-ORG-013
+P014,Screen Protector,Accessories,9.99,400,ProtectShield,ACC-SP-014
+P015,Power Bank,Electronics,49.99,75,PowerPlus,TECH-PB-015

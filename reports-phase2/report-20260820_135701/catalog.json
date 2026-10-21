@@ -1,0 +1,67 @@
+{
+  "source": "tests/data/sample.csv",
+  "tables": {
+    "data_576221": {
+      "name": "data_576221",
+      "row_count": 10,
+      "columns": {
+        "customer_id": {
+          "name": "customer_id",
+          "type": "BIGINT",
+          "nullable": true,
+          "ordinal_position": 0,
+          "profile": {}
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "VARCHAR",
+          "nullable": true,
+          "ordinal_position": 0,
+          "profile": {}
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "VARCHAR",
+          "nullable": true,
+          "ordinal_position": 0,
+          "profile": {}
+        },
+        "email": {
+          "name": "email",
+          "type": "VARCHAR",
+          "nullable": true,
+          "ordinal_position": 0,
+          "profile": {}
+        },
+        "phone": {
+          "name": "phone",
+          "type": "VARCHAR",
+          "nullable": true,
+          "ordinal_position": 0,
+          "profile": {}
+        },
+        "age": {
+          "name": "age",
+          "type": "BIGINT",
+          "nullable": true,
+          "ordinal_position": 0,
+          "profile": {}
+        },
+        "signup_date": {
+          "name": "signup_date",
+          "type": "DATE",
+          "nullable": true,
+          "ordinal_position": 0,
+          "profile": {}
+        },
+        "country": {
+          "name": "country",
+          "type": "VARCHAR",
+          "nullable": true,
+          "ordinal_position": 0,
+          "profile": {}
+        }
+      }
+    }
+  }
+}

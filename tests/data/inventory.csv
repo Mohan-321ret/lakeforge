@@ -1,0 +1,16 @@
+inventory_id,product_id,warehouse_location,quantity_available,quantity_reserved,last_updated,reorder_level
+INV001,P001,Warehouse-A,45,5,2021-11-15,10
+INV002,P002,Warehouse-B,150,20,2021-11-15,50
+INV003,P003,Warehouse-A,500,100,2021-11-15,100
+INV004,P004,Warehouse-C,30,0,2021-11-15,5
+INV005,P005,Warehouse-B,25,3,2021-11-15,8
+INV006,P006,Warehouse-A,60,10,2021-11-15,15
+INV007,P007,Warehouse-C,80,15,2021-11-15,20
+INV008,P008,Warehouse-B,120,25,2021-11-15,30
+INV009,P009,Warehouse-A,1000,200,2021-11-15,250
+INV010,P010,Warehouse-C,300,50,2021-11-15,75
+INV011,P011,Warehouse-B,200,30,2021-11-15,50
+INV012,P012,Warehouse-A,90,10,2021-11-15,20
+INV013,P013,Warehouse-C,250,40,2021-11-15,60
+INV014,P014,Warehouse-B,400,80,2021-11-15,100
+INV015,P015,Warehouse-A,75,12,2021-11-15,20

@@ -1,0 +1,22 @@
+{# Classify the question type #}
+
+You are a SQL query classifier. Analyze the user's question and determine which category it belongs to.
+
+**Question Categories:**
+1. DESCRIBE: User wants schema/column info (e.g., "What columns are in users?")
+2. AGGREGATE: User wants computed stats (COUNT, SUM, AVG, MIN, MAX) (e.g., "How many users are active?")
+3. FILTER: User wants rows matching conditions (WHERE clause) (e.g., "Show users from California")
+4. JOIN: User wants data from multiple tables (e.g., "Show users with their orders")
+5. CUSTOM: Complex query with multiple operations (GROUP BY, HAVING, etc.)
+
+**Examples:**
+- "Show me the schema of the products table" → DESCRIBE
+- "How many active users are there?" → AGGREGATE
+- "List all customers from New York" → FILTER
+- "Show orders with customer names" → JOIN
+- "What's the average order value by region?" → CUSTOM
+
+**User Question:**
+{{ question }}
+
+Respond with ONLY the category name (DESCRIBE, AGGREGATE, FILTER, JOIN, or CUSTOM). Do not explain.

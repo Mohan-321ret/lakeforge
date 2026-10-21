@@ -1,0 +1,80 @@
+[94m[INFO][0m Waiting for backend at http://localhost:8000 ...
+
+[94m[INFO][0m === Health & Sources ===
+[92m[PASS][0m GET /health
+       status=200 body={'status': 'healthy', 'version': '0.2.0'}
+[92m[PASS][0m GET /api/sources (initial)
+       status=200 count=0
+[92m[PASS][0m POST /api/sources
+       status=201 body={
+  "id": "src_2",
+  "name": "SQLite Sample DB",
+  "uri": "sqlite:///c:/Users/MohanaPrasanthSivaku/Desktop/lakeforge/sample_data.db",
+  "source_type": "sqlite",
+  "description": "E2E test sample database",
+  "tags": [
+    "test",
+    "sqlite"
+  ],
+  "created_at": "2024-01-01T00:00:00Z",
+  "last_accessed": null,
+  "row_count": null,
+  "table_count": null
+}
+[92m[PASS][0m GET /api/sources/src_2
+       status=200
+[92m[PASS][0m GET /api/sources (after create)
+       ids=['src_2']
+[92m[PASS][0m POST /api/sources/src_2/test
+       status=200 body={
+  "status": "success",
+  "message": "Connected successfully, found 0 tables",
+  "table_count": 0
+}
+
+[94m[INFO][0m === Inspection ===
+[92m[PASS][0m POST /api/inspect/start
+       status=200 body={
+  "session_id": "sess_1",
+  "status": "started"
+}
+[92m[PASS][0m GET /api/inspect/sess_1/status
+       body={
+  "session_id": "sess_1",
+  "status": "error"
+}
+[91m[FAIL][0m GET /api/inspect/sess_1/schema
+       status=500 preview={
+  "detail": "404: Session not found"
+}
+[91m[FAIL][0m GET /api/inspect/sess_1/profile
+       status=500 preview={
+  "detail": "404: Session not found"
+}
+[92m[PASS][0m GET /api/inspect/sess_1/samples
+       status=200
+
+[94m[INFO][0m === DBeaver ===
+[92m[PASS][0m GET /api/dbeaver/connections
+       status=200 count=1
+
+[94m[INFO][0m === Cleanup ===
+[92m[PASS][0m DELETE /api/sources/src_2
+       status=204
+
+============================================================
+Results: 11/13 passed
+============================================================
+  [PASS] GET /health
+  [PASS] GET /api/sources (initial)
+  [PASS] POST /api/sources
+  [PASS] GET /api/sources/src_2
+  [PASS] GET /api/sources (after create)
+  [PASS] POST /api/sources/src_2/test
+  [PASS] POST /api/inspect/start
+  [PASS] GET /api/inspect/sess_1/status
+  [FAIL] GET /api/inspect/sess_1/schema
+  [FAIL] GET /api/inspect/sess_1/profile
+  [PASS] GET /api/inspect/sess_1/samples
+  [PASS] GET /api/dbeaver/connections
+  [PASS] DELETE /api/sources/src_2

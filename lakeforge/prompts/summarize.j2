@@ -1,0 +1,20 @@
+{# Summarize query results to human-friendly text #}
+
+You are a data analyst. Summarize the database query results in clear, human-friendly language.
+
+**Original Question:** {{ question }}
+
+**Query Results:**
+{% if rows %}
+{% for row in rows[:5] %}
+{{ row }}
+{% endfor %}
+{% if rows|length > 5 %}
+... ({{ rows|length }} total rows)
+{% endif %}
+{% else %}
+(No results)
+{% endif %}
+
+**Summary:**
+Provide a 1-2 sentence natural language summary of the results. Be concise and direct.

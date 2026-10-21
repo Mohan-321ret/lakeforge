@@ -1,0 +1,102 @@
+[
+  {
+    "customer_id": 1,
+    "first_name": "Alice",
+    "last_name": "Johnson",
+    "email": "***1079ed8c***",
+    "phone": "***25e77e5a***",
+    "age": 28,
+    "signup_date": "2023-01-15",
+    "country": "USA"
+  },
+  {
+    "customer_id": 2,
+    "first_name": "Bob",
+    "last_name": "Smith",
+    "email": "***a3986081***",
+    "phone": "***7f0314e4***",
+    "age": 35,
+    "signup_date": "2023-02-20",
+    "country": "Canada"
+  },
+  {
+    "customer_id": 3,
+    "first_name": "Charlie",
+    "last_name": "Brown",
+    "email": "***105bbb3c***",
+    "phone": "***cc9911cd***",
+    "age": 42,
+    "signup_date": "2023-03-10",
+    "country": "USA"
+  },
+  {
+    "customer_id": 4,
+    "first_name": "Diana",
+    "last_name": "Prince",
+    "email": "***dce6c560***",
+    "phone": "***10f7448b***",
+    "age": 31,
+    "signup_date": "2023-04-05",
+    "country": "UK"
+  },
+  {
+    "customer_id": 5,
+    "first_name": "Evan",
+    "last_name": "Davis",
+    "email": "***dcf8d1e9***",
+    "phone": "***15590de3***",
+    "age": 29,
+    "signup_date": "2023-05-12",
+    "country": "USA"
+  },
+  {
+    "customer_id": 6,
+    "first_name": "Fiona",
+    "last_name": "Miller",
+    "email": "***77a5f91c***",
+    "phone": "***e9a40eb2***",
+    "age": 38,
+    "signup_date": "2023-06-18",
+    "country": "Australia"
+  },
+  {
+    "customer_id": 7,
+    "first_name": "George",
+    "last_name": "Wilson",
+    "email": "***57c447ca***",
+    "phone": "***48636cd9***",
+    "age": 45,
+    "signup_date": "2023-07-22",
+    "country": "USA"
+  },
+  {
+    "customer_id": 8,
+    "first_name": "Hannah",
+    "last_name": "Moore",
+    "email": "***46a6cffd***",
+    "phone": "***01f0bc4c***",
+    "age": 26,
+    "signup_date": "2023-08-30",
+    "country": "Canada"
+  },
+  {
+    "customer_id": 9,
+    "first_name": "Ian",
+    "last_name": "Taylor",
+    "email": "***8fdbe790***",
+    "phone": "***0d4ba5ef***",
+    "age": 51,
+    "signup_date": "2023-09-14",
+    "country": "UK"
+  },
+  {
+    "customer_id": 10,
+    "first_name": "Julia",
+    "last_name": "Anderson",
+    "email": "***0e14de88***",
+    "phone": "***4431165c***",
+    "age": 33,
+    "signup_date": "2023-10-20",
+    "country": "USA"
+  }
+]
