@@ -155,7 +155,7 @@ class TestDatabricksConnector:
             },
         ):
             with patch(
-                "lakeforge.sources.databricks_sql.databricks.sql.connect"
+                "databricks.sql.connect", create=True
             ) as mock_connect:
                 mock_connection = MagicMock()
                 mock_cursor = MagicMock()
@@ -187,7 +187,7 @@ class TestDatabricksConnector:
             },
         ):
             with patch(
-                "lakeforge.sources.databricks_sql.databricks.sql.connect"
+                "databricks.sql.connect", create=True
             ) as mock_connect:
                 mock_connection = MagicMock()
                 mock_connect.return_value = mock_connection

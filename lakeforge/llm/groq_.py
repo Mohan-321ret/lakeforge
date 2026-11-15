@@ -3,6 +3,12 @@
 import os
 from typing import Optional
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 from lakeforge.llm.base import BaseLLM, LLMResponse
 
 # Import Groq at module level for mocking
@@ -17,6 +23,22 @@ class GroqLLM(BaseLLM):
 
     # Groq pricing (as of 2024)
     PRICING = {
+        "openai/gpt-oss-120b": {
+            "input": 0.59 / 1_000_000,
+            "output": 0.79 / 1_000_000,
+        },
+        "openai/gpt-oss-20b": {
+            "input": 0.15 / 1_000_000,
+            "output": 0.20 / 1_000_000,
+        },
+        "qwen/qwen3.8-27b": {
+            "input": 0.20 / 1_000_000,
+            "output": 0.30 / 1_000_000,
+        },
+        "llama-3.3-70b-versatile": {
+            "input": 0.59 / 1_000_000,  # per token
+            "output": 0.79 / 1_000_000,
+        },
         "llama-3.1-70b-versatile": {
             "input": 0.59 / 1_000_000,  # per token
             "output": 0.79 / 1_000_000,
@@ -32,16 +54,17 @@ class GroqLLM(BaseLLM):
     }
 
     def __init__(
-        self, model: str = "llama-3.1-70b-versatile", api_key: Optional[str] = None
+        self, model: Optional[str] = None, api_key: Optional[str] = None
     ):
         """
         Initialize Groq LLM client.
 
         Args:
-            model: Model name (default: Llama 3.1 70B)
+            model: Model name (default: from env or openai/gpt-oss-120b)
             api_key: Groq API key (default: from GROQ_API_KEY env var)
         """
-        super().__init__(model)
+        chosen_model = model or os.getenv("GROQ_MODEL") or os.getenv("LLM_MODEL") or "openai/gpt-oss-120b"
+        super().__init__(chosen_model)
         self.api_key = api_key or os.getenv("GROQ_API_KEY")
 
         if not self.api_key:

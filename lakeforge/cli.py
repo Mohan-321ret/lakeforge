@@ -155,11 +155,29 @@ def inspect(
             _print_error(f"Failed to validate source: {str(e)}", None, verbose)
             raise typer.Exit(code=1)
 
+        # Generate inspection report
+        output_dir = Path(output) if output else config.output_dir
+        connector = get_connector(source)
+        try:
+            if profile:
+                catalog, profile_obj = profile_source(connector, verbose=verbose)
+            else:
+                catalog = discover_source(connector, verbose=verbose)
+                profile_obj = None
+
+            report_path = write_report(catalog, profile=profile_obj, output_dir=output_dir)
+            catalog_path = report_path.parent / "catalog.json"
+            console.print(f"[green]Report generated:[/green] {report_path}")
+            if verbose:
+                console.print(f"[green]Catalog schema:[/green] {catalog_path}")
+        finally:
+            connector.close()
+
         # Determine mode: one-shot or REPL
         if ask:
             # One-shot mode: ask question and exit
             _run_oneshot(source, ask, output, verbose, profile, timeout)
-        else:
+        elif sys.stdin and sys.stdin.isatty():
             # REPL mode: interactive Q&A loop
             _run_repl(source, output, verbose, profile, timeout)
 
@@ -366,9 +384,9 @@ def _print_error(message: str, suggestion: Optional[str] = None, verbose: bool =
         suggestion: Helpful suggestion
         verbose: Whether to include extra details
     """
-    console.print(f"[red]❌ Error:[/red] {message}")
+    console.print(f"[red]Error:[/red] {message}")
     if suggestion:
-        console.print(f"[yellow]💡 Suggestion:[/yellow] {suggestion}")
+        console.print(f"[yellow]Suggestion:[/yellow] {suggestion}")
 
 
 def _print_help() -> None:

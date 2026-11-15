@@ -1,5 +1,6 @@
 """Backend configuration for Lakeforge API."""
 
+import os
 from typing import Optional
 from pydantic_settings import BaseSettings
 
@@ -24,7 +25,7 @@ class Settings(BaseSettings):
     # LLM
     llm_provider: str = "groq"
     groq_api_key: Optional[str] = None
-    llm_model: str = "mixtral-8x7b-32768"
+    llm_model: str = "openai/gpt-oss-120b"
 
     # File storage
     reports_dir: str = ".lakeforge/reports"
@@ -43,7 +44,12 @@ class Settings(BaseSettings):
 
         env_file = ".env"
         case_sensitive = False
+        extra = "ignore"
 
 
 # Global settings instance
 settings = Settings()
+
+# Ensure environment variable is set for Groq client and SQL generator
+if settings.groq_api_key and not os.getenv("GROQ_API_KEY"):
+    os.environ["GROQ_API_KEY"] = settings.groq_api_key

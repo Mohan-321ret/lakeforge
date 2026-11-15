@@ -4,8 +4,14 @@ import os
 from pathlib import Path
 from typing import Any, Optional
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 import yaml
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class LakeforgeConfig(BaseModel):
@@ -44,11 +50,9 @@ class LakeforgeConfig(BaseModel):
     pii_detection_method: str = Field(default="regex", description="PII detection method")
     pii_masking_method: str = Field(default="hash", description="PII masking method")
 
-    class Config:
-        """Pydantic config."""
-
-        env_prefix = "LAKEFORGE_"
-        case_sensitive = False
+    model_config = ConfigDict(
+        case_sensitive=False,
+    )
 
     def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Override model_dump to handle Path objects."""

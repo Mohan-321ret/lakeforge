@@ -100,7 +100,6 @@ class BaseExecutor(ABC):
         """
         raise NotImplementedError("Subclasses must implement execute()")
 
-    @abstractmethod
     def _execute_impl(self, sql: str, timeout_sec: int) -> tuple:
         """Internal implementation of query execution.
 

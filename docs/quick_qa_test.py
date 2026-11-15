@@ -3,10 +3,13 @@
 import requests
 import time
 import json
+from pathlib import Path
 
 time.sleep(2)  # Wait for backend
 
 BASE_URL = 'http://localhost:8000/api'
+DB_PATH = Path(__file__).resolve().parent / "sample_data.db"
+URI = f"sqlite:///{DB_PATH.as_posix()}"
 
 print('\n=== LAKEFORGE Q&A TEST ===\n')
 
@@ -14,7 +17,7 @@ print('\n=== LAKEFORGE Q&A TEST ===\n')
 print('[1] Creating data source...')
 resp = requests.post(f'{BASE_URL}/sources', json={
     'name': 'SQLite Sample',
-    'uri': 'sqlite:///c:/Users/MohanaPrasanthSivaku/Desktop/lakeforge/sample_data.db'
+    'uri': URI
 })
 source_id = resp.json()['id']
 print(f'    [OK] Source created: {source_id}')

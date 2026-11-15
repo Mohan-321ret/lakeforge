@@ -1,10 +1,9 @@
-import os
-import sqlite3
+from pathlib import Path
 
-p = r"c:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\sample_data.db"
-print("exists:", os.path.exists(p))
-if os.path.exists(p):
-    print("size:", os.path.getsize(p), "bytes")
+p = Path(__file__).resolve().parent / "sample_data.db"
+print("exists:", p.exists())
+if p.exists():
+    print("size:", p.stat().st_size, "bytes")
     c = sqlite3.connect(p)
     rows = c.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
     print("tables:", rows)

@@ -159,11 +159,12 @@ class MySQLConnector(BaseConnector):
 
         cursor = self.connection.cursor(dictionary=True)
         try:
+            clean_sql = sql.strip().rstrip(";")
             # Add LIMIT if not already present
-            if "LIMIT" not in sql.upper():
-                sql = f"{sql} LIMIT {limit}"
+            if "LIMIT" not in clean_sql.upper():
+                clean_sql = f"{clean_sql} LIMIT {limit}"
 
-            cursor.execute(sql)
+            cursor.execute(clean_sql)
             results = cursor.fetchall()
             logger.debug(f"Query returned {len(results)} rows")
             return results

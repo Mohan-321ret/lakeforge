@@ -127,12 +127,13 @@ class SQLiteConnector(BaseConnector):
 
         cursor = self.connection.cursor()
         try:
+            clean_sql = sql.strip().rstrip(";")
             # Add LIMIT if not already present
-            if "LIMIT" not in sql.upper():
-                sql = f"{sql} LIMIT {limit}"
+            if "LIMIT" not in clean_sql.upper():
+                clean_sql = f"{clean_sql} LIMIT {limit}"
 
-            cursor.execute(sql)
-            columns = [desc[0] for desc in cursor.description]
+            cursor.execute(clean_sql)
+            columns = [desc[0] for desc in cursor.description] if cursor.description else []
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
             logger.debug(f"Query returned {len(results)} rows")
             return results

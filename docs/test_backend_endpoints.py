@@ -3,12 +3,14 @@
 import json
 import sys
 import time
+from pathlib import Path
 from typing import Any
 
 import requests
 
 BASE_URL = "http://localhost:8000"
-SAMPLE_URI = "sqlite:///c:/Users/MohanaPrasanthSivaku/Desktop/lakeforge/sample_data.db"
+DB_PATH = Path(__file__).resolve().parent / "sample_data.db"
+SAMPLE_URI = f"sqlite:///{DB_PATH.as_posix()}"
 
 PASS = "\033[92m[PASS]\033[0m"
 FAIL = "\033[91m[FAIL]\033[0m"

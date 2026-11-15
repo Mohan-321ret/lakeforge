@@ -64,6 +64,33 @@ class DatabricksExecutor(BaseExecutor):
         except Exception as e:
             raise RuntimeError(f"Failed to connect to Databricks: {e}")
 
+    def _execute_impl(self, sql: str, timeout_sec: int) -> tuple:
+        """Internal execution implementation."""
+        start_time = time.time()
+        if self.connection is None:
+            self._connect()
+
+        cursor = self.connection.cursor()
+        cursor.execute(sql)
+
+        # Fetch column names
+        if cursor.description:
+            columns = [desc[0] for desc in cursor.description]
+        else:
+            columns = []
+
+        # Fetch results
+        rows_list = cursor.fetchall()
+
+        # Convert to dicts
+        data = []
+        for row in rows_list:
+            row_dict = {columns[i]: row[i] for i in range(len(columns))}
+            data.append(row_dict)
+
+        duration_ms = (time.time() - start_time) * 1000
+        return data, columns, duration_ms
+
     def execute(self, sql: str, timeout_sec: int = 30) -> ExecutionResult:
         """Execute SQL query on Databricks.
 
@@ -77,29 +104,9 @@ class DatabricksExecutor(BaseExecutor):
         start_time = time.time()
 
         try:
-            if self.connection is None:
-                self._connect()
-
-            cursor = self.connection.cursor()
-            cursor.execute(sql)
-
-            # Fetch column names
-            if cursor.description:
-                columns = [desc[0] for desc in cursor.description]
-            else:
-                columns = []
-
-            # Fetch results
-            rows_list = cursor.fetchall()
-
-            # Convert to dicts
-            data = []
-            for row in rows_list:
-                row_dict = {columns[i]: row[i] for i in range(len(columns))}
-                data.append(row_dict)
-
+            data, columns, duration_ms = self._execute_impl(sql, timeout_sec)
             # Apply row limiting
-            result = self._limit_results(data, columns, time.time() - start_time)
+            result = self._limit_results(data, columns, duration_ms / 1000.0)
             return result
 
         except Exception as e:

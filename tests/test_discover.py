@@ -264,11 +264,12 @@ class TestCLI:
 
         with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False) as f:
             f.write("id,name,age\n1,Alice,30\n2,Bob,25\n")
-            f.flush()
+            f_name = f.name
 
+        try:
             with tempfile.TemporaryDirectory() as tmpdir:
                 result = runner.invoke(
-                    app, ["inspect", f.name, "--output", tmpdir]
+                    app, ["inspect", f_name, "--output", tmpdir]
                 )
 
                 # Should succeed
@@ -278,8 +279,8 @@ class TestCLI:
                 # Report should exist
                 report_files = list(Path(tmpdir).glob("report-*/report.md"))
                 assert len(report_files) > 0
-
-            Path(f.name).unlink()
+        finally:
+            Path(f_name).unlink(missing_ok=True)
 
     def test_inspect_missing_file(self):
         """Test inspect command with missing file."""

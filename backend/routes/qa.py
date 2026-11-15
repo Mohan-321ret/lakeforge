@@ -40,6 +40,7 @@ async def ask_question(request: QARequest) -> QAResponse:
         result = await qa_service.ask_question(
             source_uri=source.uri,
             question=request.question,
+            session_id=request.session_id,
             timeout_seconds=30,
         )
 
@@ -51,6 +52,10 @@ async def ask_question(request: QARequest) -> QAResponse:
             results=result.get("results"),
             error_message=result.get("error_message"),
             execution_time_ms=result.get("execution_time_ms", 0),
+            session_id=result.get("session_id"),
+            attempts=result.get("attempts", 1),
+            self_corrected=result.get("self_corrected", False),
+            corrections=result.get("corrections", []),
         )
 
     except HTTPException:
@@ -67,12 +72,12 @@ async def get_qa_history(session_id: str) -> dict:
         session_id: Session ID
 
     Returns:
-        List of previous Q&A exchanges
+        List of previous Q&A exchanges in this session
     """
-    # This is a placeholder for session-based Q&A history
-    # Could be implemented with persistent storage in future
+    qa_service = get_qa_service()
+    history = qa_service.get_history(session_id)
     return {
         "session_id": session_id,
-        "history": [],
-        "note": "Session history tracking coming soon",
+        "history": history,
+        "turns_count": len(history),
     }

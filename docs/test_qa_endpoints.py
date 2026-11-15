@@ -3,8 +3,11 @@
 import requests
 import json
 import time
+from pathlib import Path
 
 BASE_URL = "http://localhost:8000/api"
+DB_PATH = Path(__file__).resolve().parent / "sample_data.db"
+URI = f"sqlite:///{DB_PATH.as_posix()}"
 
 def test_qa_endpoints():
     """Test all Q&A endpoints."""
@@ -17,7 +20,7 @@ def test_qa_endpoints():
     print("\n[1] Creating SQLite sample data source...")
     source_data = {
         "name": "SQLite Sample DB",
-        "uri": "sqlite:///c:/Users/MohanaPrasanthSivaku/Desktop/lakeforge/sample_data.db",
+        "uri": URI,
         "description": "Sample database for Q&A testing"
     }
     

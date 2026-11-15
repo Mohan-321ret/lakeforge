@@ -57,6 +57,34 @@ class PostgresExecutor(BaseExecutor):
             self.connection = self.engine.connect()
         return self.connection
 
+    def _execute_impl(self, sql: str, timeout_sec: int) -> tuple:
+        """Internal execution implementation."""
+        from sqlalchemy import text
+        start_time = time.time()
+        connection = self._get_connection()
+
+        # Execute query
+        query_obj = text(sql)
+        result = connection.execute(query_obj)
+
+        # Fetch column names
+        if result.keys():
+            columns = list(result.keys())
+        else:
+            columns = []
+
+        # Fetch results
+        rows_list = result.fetchall()
+
+        # Convert to dicts
+        data = []
+        for row in rows_list:
+            row_dict = {columns[i]: row[i] for i in range(len(columns))}
+            data.append(row_dict)
+
+        duration_ms = (time.time() - start_time) * 1000
+        return data, columns, duration_ms
+
     def execute(self, sql: str, timeout_sec: int = 30) -> ExecutionResult:
         """Execute SQL query on Postgres.
 
@@ -70,31 +98,9 @@ class PostgresExecutor(BaseExecutor):
         start_time = time.time()
 
         try:
-            from sqlalchemy import text
-
-            connection = self._get_connection()
-
-            # Execute query
-            query_obj = text(sql)
-            result = connection.execute(query_obj)
-
-            # Fetch column names
-            if result.keys():
-                columns = list(result.keys())
-            else:
-                columns = []
-
-            # Fetch results
-            rows_list = result.fetchall()
-
-            # Convert to dicts
-            data = []
-            for row in rows_list:
-                row_dict = {columns[i]: row[i] for i in range(len(columns))}
-                data.append(row_dict)
-
+            data, columns, duration_ms = self._execute_impl(sql, timeout_sec)
             # Apply row limiting
-            result_obj = self._limit_results(data, columns, time.time() - start_time)
+            result_obj = self._limit_results(data, columns, duration_ms / 1000.0)
             return result_obj
 
         except Exception as e:
@@ -163,6 +169,7 @@ class PostgresExecutor(BaseExecutor):
 
     def __enter__(self):
         """Context manager entry."""
+        self._get_connection()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):

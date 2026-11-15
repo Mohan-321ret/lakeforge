@@ -133,14 +133,14 @@
 
 ### Terminal 1: Backend
 ```powershell
-cd c:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\backend
+cd backend
 python -m uvicorn main:app --reload --reload-dir ../lakeforge
 ```
 ✅ Runs at http://localhost:8000
 
 ### Terminal 2: Frontend
 ```powershell
-cd c:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\frontend
+cd frontend
 npm run dev
 ```
 ✅ Runs at http://localhost:5173

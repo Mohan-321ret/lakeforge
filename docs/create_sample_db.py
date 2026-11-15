@@ -1,7 +1,8 @@
 import os
 import sqlite3
+from pathlib import Path
 
-db_path = r"c:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\sample_data.db"
+db_path = str(Path(__file__).resolve().parent / "sample_data.db")
 
 if os.path.exists(db_path):
     os.remove(db_path)

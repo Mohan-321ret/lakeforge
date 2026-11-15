@@ -66,18 +66,31 @@ class InspectionService:
                 self.sessions[session_id]["profile"] = profile.to_dict() if hasattr(profile, "to_dict") else str(profile)
                 logger.info(f"Generated profile")
 
-            connector.close()
-            self.sessions[session_id]["status"] = "completed"
-            logger.info(f"✅ Inspection {session_id} completed")
+            # Collect sample rows for tables
+            from lakeforge.profile import Sampler
+            sampler = Sampler(max_rows=min(request.sample_size or 50, 50))
+            samples_dict = {}
+            for table_name in catalog.tables.keys():
+                try:
+                    samples_dict[table_name] = sampler.sample_from_connector(connector, table_name)
+                except Exception as s_err:
+                    logger.warning(f"Sample collection failed for {table_name}: {s_err}")
+                    samples_dict[table_name] = []
+            self.sessions[session_id]["samples"] = samples_dict
 
-            connector.close()
             self.sessions[session_id]["status"] = "completed"
-            logger.info(f"✅ Inspection {session_id} completed")
+            logger.info(f"Inspection {session_id} completed")
 
         except Exception as e:
             logger.error(f"Inspection failed: {str(e)}")
             self.sessions[session_id]["status"] = "error"
             self.sessions[session_id]["error"] = str(e)
+        finally:
+            if connector is not None:
+                try:
+                    connector.close()
+                except Exception:
+                    pass
 
         return session_id
 

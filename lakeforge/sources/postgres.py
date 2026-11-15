@@ -188,11 +188,12 @@ class PostgresConnector(BaseConnector):
         try:
             from sqlalchemy import text
 
+            clean_sql = sql.strip().rstrip(";")
             # Add LIMIT if not present
-            if "LIMIT" not in sql.upper():
-                sql = f"{sql} LIMIT {limit}"
+            if "LIMIT" not in clean_sql.upper():
+                clean_sql = f"{clean_sql} LIMIT {limit}"
 
-            query_obj = text(sql)
+            query_obj = text(clean_sql)
             result = self.connection.execute(query_obj)
 
             # Fetch column names

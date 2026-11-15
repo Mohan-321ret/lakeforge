@@ -51,14 +51,14 @@ A **complete full-stack data inspection and Q&A platform** with:
 ### 1. Start Backend (in Terminal 1)
 ```powershell
 $env:GROQ_API_KEY='YOUR_GROQ_API_KEY'
-cd c:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\backend
+cd backend
 python -m uvicorn main:app --reload --reload-dir ../lakeforge
 ```
 ✅ Backend runs at http://localhost:8000
 
 ### 2. Start Frontend (in Terminal 2)
 ```powershell
-cd c:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\frontend
+cd frontend
 npm run dev
 ```
 ✅ Frontend runs at http://localhost:5173

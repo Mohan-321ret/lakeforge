@@ -72,6 +72,10 @@ class QAResponse(BaseModel):
     results: Optional[List[Dict[str, Any]]]
     error_message: Optional[str]
     execution_time_ms: float
+    session_id: Optional[str] = None
+    attempts: int = 1
+    self_corrected: bool = False
+    corrections: Optional[List[str]] = None
 
 
 class ReportCreate(BaseModel):

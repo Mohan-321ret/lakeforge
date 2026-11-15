@@ -157,13 +157,14 @@ class OracleConnector(BaseConnector):
         if not self.connection:
             self.connect()
 
+        clean_sql = sql.strip().rstrip(";")
         # Add ROWNUM restriction if not already present
-        if "ROWNUM" not in sql.upper():
-            sql = f"SELECT * FROM ({sql}) WHERE ROWNUM <= {limit}"
+        if "ROWNUM" not in clean_sql.upper():
+            clean_sql = f"SELECT * FROM ({clean_sql}) WHERE ROWNUM <= {limit}"
 
         cursor = self.connection.cursor()
         try:
-            cursor.execute(sql)
+            cursor.execute(clean_sql)
             columns = [desc[0] for desc in cursor.description]
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
             logger.debug(f"Query returned {len(results)} rows")

@@ -235,7 +235,7 @@ class TestGroqLLMClient:
 
         with patch.dict("os.environ", {"GROQ_API_KEY": "test-key"}):
             client = GroqLLM()
-            assert client.model == "llama-3.1-70b-versatile"
+            assert client.model == "openai/gpt-oss-120b"
             assert client.api_key == "test-key"
 
     @patch("lakeforge.llm.groq_.Groq")

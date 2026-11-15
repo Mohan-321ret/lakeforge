@@ -28,6 +28,7 @@ class SQLGenerator:
         schema: dict,
         glossary: list[dict] | None = None,
         use_cache: bool = True,
+        history: list[dict] | None = None,
     ) -> dict:
         """
         Generate SQL for a question.
@@ -37,6 +38,7 @@ class SQLGenerator:
             schema: Database schema dict (table_name → [columns])
             glossary: Optional list of glossary terms with definitions
             use_cache: Whether to use prompt cache
+            history: Optional previous exchanges in multi-turn conversation
             
         Returns:
             Dict with keys:
@@ -58,6 +60,19 @@ class SQLGenerator:
         # Simple Jinja2 rendering
         prompt = sql_template.replace("{{ question }}", question)
         
+        # Prepend conversation history if provided
+        if history:
+            hist_lines = ["\n**Previous Conversation Context:**"]
+            for turn in history[-3:]:
+                q = turn.get("question", "")
+                s = turn.get("generated_sql", "")
+                if q and s:
+                    hist_lines.append(f"User asked: {q}")
+                    hist_lines.append(f"Generated SQL: {s}")
+            if len(hist_lines) > 1:
+                hist_text = "\n".join(hist_lines) + "\n\n"
+                prompt = prompt.replace("**Question:**", f"{hist_text}**Question:**")
+
         # Replace schema
         schema_text = self._format_schema(schema)
         prompt = prompt.replace("{% for table_name, columns in schema.items() %}", "")
@@ -95,6 +110,63 @@ class SQLGenerator:
             "query_type": query_type.value,
             "explanation": f"Generated {query_type.value} query using schema context",
             "confidence": response.completion_tokens,  # Placeholder
+        }
+
+    def correct(
+        self,
+        question: str,
+        failed_sql: str,
+        error_message: str,
+        schema: dict,
+        dialect: str = "sqlite",
+    ) -> dict:
+        """Self-correct a failed SQL query using LLM reflection.
+
+        Args:
+            question: Original natural language question
+            failed_sql: Previous SQL that caused an error
+            error_message: Execution or validation error message
+            schema: Database schema dict
+            dialect: Target database dialect (sqlite, postgres, mysql, etc.)
+
+        Returns:
+            Dict with corrected sql, validity, and explanation
+        """
+        schema_text = self._format_schema(schema)
+        prompt = f"""You are an expert SQL debugger. The following SQL query was generated to answer:
+"{question}"
+
+However, executing it against the {dialect} database failed with this error:
+{error_message}
+
+Failed SQL:
+```sql
+{failed_sql}
+```
+
+Database Schema:
+{schema_text}
+
+Rules:
+1. Fix the SQL query to resolve the exact error.
+2. Target dialect: {dialect}.
+3. ONLY use read-only SELECT or WITH statements (no modifications).
+4. Verify all table and column names exist in the schema.
+5. Return ONLY the corrected SQL query inside a ```sql code block.
+"""
+        response = self.llm.complete(
+            prompt,
+            max_tokens=512,
+            temperature=0.1,
+        )
+        sql_text = response.text.strip()
+        sql = self._extract_sql(sql_text)
+        valid = self._validate_sql(sql)
+        return {
+            "sql": sql,
+            "valid": valid,
+            "query_type": "CORRECTION",
+            "explanation": f"Self-corrected SQL to resolve error: {error_message}",
         }
     
     def _format_schema(self, schema: dict) -> str:

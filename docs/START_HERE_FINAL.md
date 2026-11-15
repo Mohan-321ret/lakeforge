@@ -21,7 +21,7 @@ A **complete full-stack data inspection & Q&A platform** with:
 ### Terminal 1: Backend
 ```powershell
 $env:GROQ_API_KEY='YOUR_GROQ_API_KEY'
-cd c:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\backend
+cd backend
 python -m uvicorn main:app --reload --reload-dir ../lakeforge
 ```
 
@@ -29,7 +29,7 @@ python -m uvicorn main:app --reload --reload-dir ../lakeforge
 
 ### Terminal 2: Frontend
 ```powershell
-cd c:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\frontend
+cd frontend
 npm run dev
 ```
 
@@ -74,7 +74,7 @@ SQLite, PostgreSQL, MySQL, SQL Server, Oracle, Databricks, S3
 Run this to verify everything works:
 
 ```bash
-python c:\Users\MohanaPrasanthSivaku\Desktop\lakeforge\quick_qa_test.py
+python quick_qa_test.py
 ```
 
 Expected output:

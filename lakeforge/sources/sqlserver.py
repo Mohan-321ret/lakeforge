@@ -183,13 +183,14 @@ class SQLServerConnector(BaseConnector):
         if not self.connection:
             self.connect()
 
+        clean_sql = sql.strip().rstrip(";")
         # Add TOP clause if not already present
-        if "TOP" not in sql.upper():
-            sql = sql.replace("SELECT", f"SELECT TOP {limit}", 1)
+        if "TOP" not in clean_sql.upper():
+            clean_sql = clean_sql.replace("SELECT", f"SELECT TOP {limit}", 1)
 
         cursor = self.connection.cursor()
         try:
-            cursor.execute(sql)
+            cursor.execute(clean_sql)
             columns = [desc[0] for desc in cursor.description]
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
             logger.debug(f"Query returned {len(results)} rows")

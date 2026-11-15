@@ -1,5 +1,6 @@
 """LLM abstraction and factory."""
 
+import os
 from typing import Optional
 
 from lakeforge.llm.base import BaseLLM, LLMResponse
@@ -31,7 +32,7 @@ def get_llm(
     if provider == "groq":
         from lakeforge.llm.groq_ import GroqLLM
 
-        model = model or "llama-3.1-70b-versatile"
+        model = model or os.getenv("GROQ_MODEL") or os.getenv("LLM_MODEL") or "openai/gpt-oss-120b"
         return GroqLLM(model=model)
 
     elif provider == "ollama":

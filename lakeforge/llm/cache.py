@@ -71,12 +71,13 @@ class PromptCache:
 
         conn = sqlite3.connect(self.cache_path)
         try:
+            now_iso = datetime.now().isoformat()
             cursor = conn.execute(
                 """
                 SELECT response, model FROM prompt_cache
                 WHERE key = ? AND (expires_at IS NULL OR expires_at > ?)
                 """,
-                (key, datetime.now()),
+                (key, now_iso),
             )
             row = cursor.fetchone()
 
@@ -112,7 +113,7 @@ class PromptCache:
 
         expires_at = None
         if ttl_seconds:
-            expires_at = datetime.now() + timedelta(seconds=ttl_seconds)
+            expires_at = (datetime.now() + timedelta(seconds=ttl_seconds)).isoformat()
 
         conn = sqlite3.connect(self.cache_path)
         try:
@@ -141,9 +142,10 @@ class PromptCache:
         """Remove expired entries."""
         conn = sqlite3.connect(self.cache_path)
         try:
+            now_iso = datetime.now().isoformat()
             conn.execute(
                 "DELETE FROM prompt_cache WHERE expires_at < ?",
-                (datetime.now(),),
+                (now_iso,),
             )
             conn.commit()
         finally:
